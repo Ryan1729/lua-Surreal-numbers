@@ -22,7 +22,7 @@ end
 
 -- Here's the interesting part
 
-function makeSurrealNumber(leftSet, rightSet)
+function makeSurrealNumber (leftSet, rightSet)
     return {left = leftSet, right = rightSet}
 end
 
@@ -31,7 +31,7 @@ end
 ------------------------------------------
 
 --returns true if x <= y, false otherwise
-function isLessThanOrEqual(x, y)
+function isLessThanOrEqual (x, y)
     -- the definition of <= for surreal numbers is as follows:
     -- A surreal number x is <= to a surreal number y iff 
     -- y is <= to no member of x's left set and no member of y's right set is <= x
@@ -59,37 +59,37 @@ function isLessThanOrEqual(x, y)
 end
 
 --returns false if x <= y, true otherwise
-function isNotLessThanOrEqual(x, y)
+function isNotLessThanOrEqual (x, y)
     return not isLessThanOrEqual(x, y)
 end
 
 --returns true if x >= y, false otherwise
-function isGreaterThanOrEqual(x, y)
+function isGreaterThanOrEqual (x, y)
     return isLessThanOrEqual(y, x)
 end
 
 --returns false if x >= y, true otherwise
-function isNotGreaterThanOrEqual(x, y)
+function isNotGreaterThanOrEqual (x, y)
     return not isGreaterThanOrEqual(x, y)
 end
 
 --returns true if x < y, false otherwise
-function isLessThan(x, y)
+function isLessThan (x, y)
     return isLessThanOrEqual(x, y) and not isLessThanOrEqual(y, x)
 end
 
 --returns true if x > y, false otherwise
-function isGreaterThan(x, y)
+function isGreaterThan (x, y)
     return isLessThan(y, x)
 end
 
 --returns true if x = y, false otherwise
-function isEqual(x, y)
+function isEqual (x, y)
     return isLessThanOrEqual(x, y) and isLessThanOrEqual(y, x)
 end
 
 --returns true if x != y, false otherwise
-function isNotEqual(x, y)
+function isNotEqual (x, y)
     return not isEqual(x, y)
 end
 
@@ -97,7 +97,7 @@ end
 -- numericity testing functions
 ------------------------------------------
 
-function isNumeric(x)
+function isNumeric (x)
     -- Something with the form of a surreal number is numeric if the 
     -- intersection of its left and right sets is the empty set and
     -- each element of its right set is greater than every element of 
@@ -119,7 +119,7 @@ function isNumeric(x)
     return true
 end
 
-function isNotNumeric(x)
+function isNotNumeric (x)
     return not isNumeric(x)
 end
 
@@ -128,7 +128,8 @@ end
 ------------------------------------------
 
 -- this is a helper function which will not be visible except inside the module
-local function nilFilter(set1,set2, comparsionFunction)
+-- i.e. it is a private function
+local function nilFilter (set1,set2, comparsionFunction)
 
     if set1 ~= nil and set2 ~= nil then
         -- We only need one member of the new set to 
@@ -148,7 +149,7 @@ local function nilFilter(set1,set2, comparsionFunction)
 end
 
 -- returns the sum of x and y, i.e. x + y
-function add(x, y)
+function add (x, y)
     --the empty set + anything = the empty set
     if x == nil or y == nil then
         return nil
@@ -159,8 +160,8 @@ function add(x, y)
     
     local result = {}
     
-    local left1 = add(x.left, y)
-    local left2 = add(x, y.left)
+    local left1  = add(x.left,  y)
+    local left2  = add(x,  y.left)
     local right1 = add(x.right, y)
     local right2 = add(x, y.right)
     
@@ -176,7 +177,7 @@ function add(x, y)
 end
 
 -- returns the inverse of x, i.e. -x
-function inverse(x)
+function inverse (x)
 
     if x == nil then
     -- the empty set is its own inverse
@@ -193,7 +194,7 @@ function inverse(x)
 end
 
 -- returns the difference of x and y, i.e. x - y
-function minus(x, y)
+function minus (x, y)
     return add(x, inverse(y))
 end
 
@@ -202,7 +203,7 @@ end
 ------------------------------------------
 
 -- returns the product of x and y, i.e. x * y
-function times(x, y)
+function times (x, y)
     --the empty set * anything = the empty set
     if x == nil or y == nil then
         return nil
